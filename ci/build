@@ -16,7 +16,13 @@ export PATH=${PWD}/Godeps/_workspace/bin:$PATH
 
 go install github.com/onsi/ginkgo/ginkgo
 
-CGO_ENABLED=1 ginkgo -race -r -p "$@"
+if [ "`uname -m`" == "ppc64le" ]; then
+  race=""
+else
+  race="-race"
+fi
 
-cp -a test/ assets/ Dockerfile $BUILD_DIR
+CGO_ENABLED=1 ginkgo $race -r -p "$@"
+
+cp -a test/ assets/ Dockerfile_ppc64le $BUILD_DIR
 go build -o $BUILD_DIR/built-out ./cmd/out

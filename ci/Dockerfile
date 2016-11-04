@@ -1,8 +1,7 @@
-FROM concourse/static-golang
+FROM ppc64le/golang:1.7.3
 
-ADD http://stedolan.github.io/jq/download/linux64/jq /usr/local/bin/jq
+ADD http://ftp.unicamp.br/pub/ppc64el/ubuntu/14_04/cloud-foundry/jq-1.5-ppc64le /usr/local/bin/jq
 RUN chmod +x /usr/local/bin/jq
-
 
 RUN apt-get update && apt-get install -y zlib1g-dev gettext
 
